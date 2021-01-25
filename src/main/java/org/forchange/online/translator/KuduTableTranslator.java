@@ -38,7 +38,7 @@ public class KuduTableTranslator implements FlinkSqlTranslator {
 
     @Override
     public void translator(SinkTableConfig sinkTableConfig, StreamTableEnvironment tableEnvironment, StreamExecutionEnvironment env) throws Exception {
-        String kuduMasterAddress = "cdh01:7051,cdh02:7051,cdh03:7051";
+        String kuduMasterAddress = "10.16.24.40:7051,10.16.24.41:7051,10.16.24.42:7051";
         StringBuilder jobName = new StringBuilder();
         String columns = sinkTableConfig.getColumns();
         AbstractCatalog catalog = new KuduCatalog("cdh_kudu", kuduMasterAddress);

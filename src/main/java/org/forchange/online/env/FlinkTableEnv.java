@@ -30,7 +30,7 @@ public class FlinkTableEnv {
         tableEnvironment.getConfig().getConfiguration().set(CHECKPOINTING_INTERVAL, ofMinutes(3));
         tableEnvironment.getConfig().getConfiguration().set(MIN_PAUSE_BETWEEN_CHECKPOINTS, ofMinutes(1));
         tableEnvironment.getConfig().getConfiguration().set(CHECKPOINTING_TIMEOUT, ofMinutes(5));
-        KuduCatalog cdh_kudu = new KuduCatalog("cdh_kudu", "cdh01:7051,cdh02:7051,cdh03:7051");
+        KuduCatalog cdh_kudu = new KuduCatalog("cdh_kudu", "10.16.24.40:7051,10.16.24.41:7051,10.16.24.42:7051");
         tableEnvironment.registerCatalog("cdh_kudu",cdh_kudu);
         tableEnvironment.useCatalog(EnvironmentSettings.DEFAULT_BUILTIN_CATALOG);
         tableEnvironment.getConfig().setSqlDialect(SqlDialect.DEFAULT);
@@ -47,7 +47,6 @@ public class FlinkTableEnv {
     public static StreamExecutionEnvironment dataStreamRunEnv() {
 
         StreamExecutionEnvironment environment = StreamExecutionEnvironment.getExecutionEnvironment();
-        environment.setParallelism(10);
         // 默认flink失败重启策略
         environment.setRestartStrategy(RestartStrategies.fixedDelayRestart(3, 1000 * 60 * 3));
         // 默认时间语义为EventTime,设置watermark生成间隔时间
